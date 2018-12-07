@@ -6,6 +6,7 @@ use source::Source;
 use std::collections::HashMap;
 use std::error::Error;
 use value::Value;
+use case;
 
 #[cfg(feature = "toml")]
 mod toml;
@@ -67,6 +68,18 @@ lazy_static! {
 
         formats
     };
+}
+
+pub fn insert_all_case_key(map: &mut HashMap<String, Value>, key: &str, value: &Value) {
+    map.insert(case::RenameRule::CamelCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::KebabCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::LowerCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::PascalCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::ScreamingKebabCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::ScreamingSnakeCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::SnakeCase.apply_to_field(key).to_owned(), value.clone());
+    map.insert(case::RenameRule::UPPERCASE.apply_to_field(key).to_owned(), value.clone());
+    map.insert(key.to_owned(), value.clone());
 }
 
 impl FileFormat {

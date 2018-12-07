@@ -42,7 +42,8 @@ fn from_yaml_value(uri: Option<&String>, value: &yaml::Yaml) -> Value {
             let mut m = HashMap::new();
             for (key, value) in table {
                 if let Some(k) = key.as_str() {
-                    m.insert(k.to_lowercase().to_owned(), from_yaml_value(uri, value));
+                    super::insert_all_case_key(&mut m, k, &from_yaml_value(uri, value));
+                    //m.insert(k.to_lowercase().to_owned(), from_yaml_value(uri, value));
                 }
                 // TODO: should we do anything for non-string keys?
             }

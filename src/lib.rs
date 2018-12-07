@@ -60,6 +60,7 @@ mod path;
 mod ser;
 mod source;
 mod value;
+mod case;
 
 pub use config::Config;
 pub use env::Environment;
